@@ -1,8 +1,8 @@
 const ENVIRONMENT = true; //true=production
 
 export const SERVER_ENDPOINTS = {
-    AUTH_USER_CREATE: 'auth/user/create/',
-    AUTH_USER_AUTHENTICATE: 'auth/user/authenticate/',
+    AUTH_USER_CREATE: 'auth/user/create',
+    AUTH_USER_AUTHENTICATE: 'auth/user/authenticate',
     ACCOUNTS: 'accounts/',
     CATALOGS_CARDS: 'catalogs/cards/'
 };

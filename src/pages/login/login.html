@@ -7,15 +7,20 @@
 <ion-list>
 
   <ion-item>
-    <ion-label stacked>Username</ion-label>
-    <ion-input type="text" placeholder="Ingre su correo electrónico"></ion-input>
+    <ion-label stacked>Email</ion-label>
+    <ion-input type="text" placeholder="Ingre su correo electrónico" [(ngModel)]="user.email"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label stacked>Password</ion-label>
-    <ion-input type="password" placeholder="***********"></ion-input>
+    <ion-input type="password" placeholder="***********" [(ngModel)]="user.password"></ion-input>
   </ion-item>
   <div padding>
-    <button block (click)="doLogin()">Iniciar</button>
+    <button block (click)="doLogin()" class="disable-hover button button-ios button-default button-default-ios button-block button-block-ios button-ios-primary" [disabled]="validForm()">
+        Iniciar
+    </button>
+    <button block (click)="goRegister()" class="disable-hover button button-ios button-default button-default-ios button-block button-block-ios button-ios-primary">
+        Registrarse
+    </button>
   </div>
 </ion-list>

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { User } from '../../interfaces/user_interface';
+import { AuthLoginProvider } from '../../providers/auth-login/auth-login';
 
 /**
  * Generated class for the LoginPage page.
@@ -15,15 +17,36 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class LoginPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
+  user:User={
+    email:'',
+    password:''
+  };
+  constructor(public navCtrl: NavController, public navParams: NavParams, private AuthLogin: AuthLoginProvider) {
+    this.user={
+      email:'',
+      password:''
+    }
   }
 
   doLogin(){
-    console.log("Hacer login");
+    let dataLogin = {
+      email:this.user.email,
+      password:this.user.password
+    }
+    
+    this.AuthLogin.doLogin(dataLogin).then(data => {
+      console.log("Respuesta del endpoint de logueo<<<<<<",data);
+    }).catch(err => {
+      console.log(err)
+    });
+  }
+
+  goRegister(){
+    this.navCtrl.push("RegisterPage");
+  }
+
+  validForm(){
+    return this.user.email == "" || this.user.password == "";
   }
 
 }
