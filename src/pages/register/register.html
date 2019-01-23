@@ -12,9 +12,8 @@
 
 </ion-header>
 
-
-<form (ngSubmit)="doRegister()">
-  <br /><br />
+<ion-content>
+  <form (ngSubmit)="doRegister()">  
     <ion-item>
         <ion-label stacked>Email</ion-label>
         <ion-input type="text" placeholder="Ingrese su correo electrónico" [(ngModel)]="user.email" name="email"></ion-input>
@@ -48,6 +47,5 @@
             Tengo cuenta
         </button>
     </div>
-    
-
   </form>
+</ion-content>

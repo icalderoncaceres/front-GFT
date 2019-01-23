@@ -4,6 +4,7 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
+//Las constantes trae la dirección de los endpoints y sus nombres
 import { SERVER_URL, SERVER_ENDPOINTS } from '../../helpers/constants';
 
 @Injectable()
@@ -15,6 +16,11 @@ export class AuthLoginProvider {
   ) {
   }
 
+  /**
+   * @param data Objeto JSON con el email y el password del usuario
+   * Crea las cabeceras del endpoint
+   * Consulta el endpoint que consulta las credenciales de un usuario y Devuelve una promesa
+   */
   doLogin(data) {
 
     let url = `${SERVER_URL}${SERVER_ENDPOINTS.AUTH_USER_AUTHENTICATE}`;
@@ -28,6 +34,12 @@ export class AuthLoginProvider {
       .toPromise();
 
   }
+
+    /**
+   * @param data Objeto JSON con los datos del usuario a ser agregado
+   * Crea las cabeceras del endpoint
+   * Consulta el endpoint que crea un usuario y Devuelve una promesa
+   */
 
   doRegister(data){
 

@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Agregar una nueva cuenta</ion-title>
+    <ion-title>Agregar una nueva cuenta al usuario {{sessData.firstname}} {{sessData.lastname}} email {{sessData.email}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -16,10 +16,11 @@
   <form (submit)="addAccount()">
     <ion-item>
       <ion-label>Catalogo</ion-label>
-      <ion-select [(ngModel)]="type_card" name="type_card">
+      <ion-select (ionChange)="changeTypeCard($event)" name="type_card">
+        <!--Llenamos el selector con lo devuelto por el endpoint de catalogos-->
         <ion-option *ngFor="let card of cards" [value]="card | json" [selected]="index == 0">{{card.name}}</ion-option>
       </ion-select>
     </ion-item>
-    <button ion-button type="submit" block>Agregar</button>
+    <button ion-button type="submit" block [disabled]="type_card==null">Agregar</button>
   </form>
 </ion-content>

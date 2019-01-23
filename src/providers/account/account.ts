@@ -4,6 +4,7 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
+//Las constantes trae la dirección de los endpoints y sus nombres
 import { SERVER_URL, SERVER_ENDPOINTS } from '../../helpers/constants';
 
 @Injectable()
@@ -15,6 +16,12 @@ export class AccountProvider {
   ) {
   }
 
+  /**
+   * 
+   * @param data objeto JSON con el token del usuario
+   * Crea la cabecera de la petición y form la URL basado en las constante
+   * Consulta el endpoint que trae la lista de cuentas y Devuelve una promesa
+   */
   index(data) {
 
     let url = `${SERVER_URL}${SERVER_ENDPOINTS.ACCOUNTS}`;
@@ -30,6 +37,10 @@ export class AccountProvider {
 
   }
 
+  /**
+   * Crea la cabecera de la petición y form la URL basado en las constante
+   * Consulta el endpoint que trae la lista de catalogos y Devuelve una promesa
+   */
   getCards() {
     let url = `${SERVER_URL}${SERVER_ENDPOINTS.CATALOGS_CARDS}`;
 
@@ -42,6 +53,11 @@ export class AccountProvider {
       .toPromise();      
   }
 
+  /**
+   * @param data objeto json con los datos a ser enviados al endpoint ademas del token del usuario
+   * Crea la cabecera de la petición y form la URL basado en las constante
+   * Consulta el endpoint que crea la cuenta y Devuelve una promesa
+   */
   addAccount(data){
     let url = `${SERVER_URL}${SERVER_ENDPOINTS.ACCOUNTS}`;
     let headers = new Headers();

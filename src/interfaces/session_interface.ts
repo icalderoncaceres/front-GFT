@@ -1,5 +1,6 @@
 /**
  * Session Interfaces
+ * Define la estructura del objeto que se guardara en el storage con los datos del usuario que inicio sessión
  */
 
 export interface SessionData {

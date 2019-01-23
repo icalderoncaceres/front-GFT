@@ -34,50 +34,61 @@ export class AccountFormPage {
     };
 
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AccountFormPage');
-  }
-
+  /*
+  Método encargado solicitar la creación de una cuenta, no recibe parametros ni devuelve valores
+  */
   addAccount(){
-    console.log("cardaaaaa<<<<<<<<",this.type_card);
+    //Se crea un objeto json que sera enviado al proveedor encargado de hacer la petición
     let sendData = {
       data:{
         "userId": this.sessData.id,
-        "type": "TDD",
-        "name": "Tarjeta de Debito"  
+        "type": this.type_card.type,
+        "name": this.type_card.name  
       },
       token:this.sessData.token
     };
-    console.log("sendData<<<<<<<<",sendData);
-    
+
+    //Se llama al método del provider account, encargado de consumir el endpoint de crear cuentas
     this.accountProvider.addAccount(sendData).then(data => {
+      //En caso de ser resulta la promesa envia un mensaje
       const alert = this.alertCtrl.create({
         title: 'Felicitaciones',
         subTitle: 'Acabas de crear tu cuenta, por favor espera 24 horas',
         buttons: ['OK']
       });
-      alert.present();
+      alert.present();      
     }).catch(err => {
       console.log(err);
     });
     
   }
 
+  /*
+  Encargado de invocar al método del provider account que lista los catalogos
+  El resultado del endpoint se almacena en el objeto cards, el cual es recorrido por medio de un ngFor para llenar el selector de catalogos
+  */
   loadData(){
-    this.accountProvider.getCards().then(data => {
-      console.log("Cardsss<<<<",data);
-      this.cards = data.response.type_cards;
-    }).catch(err => {
-      console.log(err);
-    });
-
+    //Consultamos la variable de sessión, es importante hacerlo en cada proceso porque el usuario puede cerrar la sessión en otra pestaña
+    //O limpiar la cache
     this.storage.get('sessData').then(data => {
       this.sessData = data;
+      //Una vez seguros que existe session, llamamos al método encargado de hacer la petición
+      this.accountProvider.getCards().then(data => {
+        //Cuándo se resuleve la promesa se almacena la lista devuelta en el objeto cards
+        this.cards = data.response.type_cards;
+      }).catch(err => {
+        console.log(err);
+      });
     }).catch(err => {
+      //En caso de no tener session mandamos al home
       this.navCtrl.push("TabsPage");
     });    
 
+  }
+
+  //Actualiza el estado del tipo de tarjeta seleccionada cuándo modifica el selector
+  changeTypeCard(typeCard) {
+    this.type_card = JSON.parse(typeCard);
   }
 
 }
