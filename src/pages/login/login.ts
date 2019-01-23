@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { User } from '../../interfaces/user_interface';
 import { AuthLoginProvider } from '../../providers/auth-login/auth-login';
+import { Storage } from '@ionic/storage';
+import jwt_decode from 'jwt-decode';
 
 /**
  * Generated class for the LoginPage page.
@@ -21,11 +23,13 @@ export class LoginPage {
     email:'',
     password:''
   };
-  constructor(public navCtrl: NavController, public navParams: NavParams, private AuthLogin: AuthLoginProvider) {
+  userValid = 0;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private AuthLogin: AuthLoginProvider, private storage: Storage) {
     this.user={
       email:'',
       password:''
     }
+    this.userValid = 0;
   }
 
   doLogin(){
@@ -35,9 +39,18 @@ export class LoginPage {
     }
     
     this.AuthLogin.doLogin(dataLogin).then(data => {
-      console.log("Respuesta del endpoint de logueo<<<<<<",data);
+      if(data.token){
+        let token = jwt_decode(data.token);
+        token.token = data.token;
+        console.log("token<<<<<",token);
+        this.storage.set("sessData",token);
+        this.userValid = 1;
+        this.navCtrl.push("AccountPage");
+      }else{
+        this.userValid = 2;
+      }
     }).catch(err => {
-      console.log(err)
+      this.userValid = 2;
     });
   }
 

@@ -2,6 +2,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+import { IonicStorageModule } from '@ionic/storage';
 
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
@@ -13,6 +14,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HttpModule } from '@angular/http';
 import { AuthLoginProvider } from './../providers/auth-login/auth-login';
+import { AccountProvider } from './../providers/account/account';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,9 @@ import { AuthLoginProvider } from './../providers/auth-login/auth-login';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpModule,
+		IonicStorageModule.forRoot({
+			name: 'bankApp'
+		}),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -42,7 +47,8 @@ import { AuthLoginProvider } from './../providers/auth-login/auth-login';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AuthLoginProvider
+    AuthLoginProvider,
+    AccountProvider,
   ]
 })
 export class AppModule {}

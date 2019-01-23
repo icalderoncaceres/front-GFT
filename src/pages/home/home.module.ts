@@ -3,6 +3,7 @@ import { IonicPageModule, IonicPage } from 'ionic-angular';
 import { HomePage } from './home';
 import { LoginPage } from '../login/login';
 import { AuthLoginProvider } from '../../providers/auth-login/auth-login'
+import { AccountProvider } from '../../providers/account/account';
 
 @IonicPage()
 @NgModule({
@@ -14,7 +15,8 @@ import { AuthLoginProvider } from '../../providers/auth-login/auth-login'
     LoginPage
   ],
   providers: [
-    AuthLoginProvider
+    AuthLoginProvider,
+    AccountProvider,
   ],
 })
 export class LoginPageModule {}

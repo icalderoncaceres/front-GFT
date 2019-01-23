@@ -1,5 +1,5 @@
 /**
- * Country Interfaces
+ * User Interfaces
  */
 
 export interface User {
